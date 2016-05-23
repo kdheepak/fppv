@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+import fppv
 
 try:
     from setuptools import setup
@@ -24,7 +25,7 @@ test_requirements = [
 
 setup(
     name='fppv',
-    version='0.1.0',
+    version=fppv.__version__,
     description="Find Python Package Version",
     long_description=readme + '\n\n' + history,
     author="Dheepak Krishnamurthy",
@@ -36,6 +37,11 @@ setup(
     package_dir={'fppv':
                  'fppv'},
     include_package_data=True,
+    entry_points={
+        "console_scripts": [
+            "fppv = fppv.cli:cli",
+        ],
+    },
     install_requires=requirements,
     license="ISCL",
     zip_safe=False,
