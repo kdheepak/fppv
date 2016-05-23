@@ -33,6 +33,7 @@ install:
   - easy_install -U setuptools
   - pip install -U pip wheel
   - pip install sphinx
+  - pip install sphinx-rtd-theme
   - pip install ghp-import
 before_script:
   - git config user.name "Travis-CI"
