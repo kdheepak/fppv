@@ -25,3 +25,30 @@ notifications:
 branches:
   only:
     - master
+before_install:
+  - sudo apt-get -y install jq
+  - wget `curl https://api.github.com/repos/jgm/pandoc/releases/latest | jq -r '.assets[] | .browser_download_url | select(endswith("deb"))'` -O pandoc.deb
+  - sudo dpkg -i pandoc.deb
+install:
+  - easy_install -U setuptools
+  - pip install -U pip wheel
+  - pip install sphinx
+  - pip install ghp-import
+before_script:
+  - git config user.name "Travis-CI"
+  - git config user.email "noreply@travis-ci.org"
+  - export PATH=$PATH:/home/travis/.cabal/bin
+script:
+  - echo "Running script"
+  - cd docs
+  - make html
+  - git config user.name "Travis-CI"
+  - git config user.email "noreply@travis-ci.org"
+  - ghp-import -n -m "Generate Sphinx Documentation"  _build/html
+  - git push -f -q https://$GITHUB_API_KEY@github.com/kdheepak89/fppv gh-pages
+cache:
+  directories:
+  - $HOME/.cache/pip
+env:
+  global:
+      - secure: "PHLsPzpMHmTaFZYAw02fz6/XQXfaZ4ufYe9/sQ/egYApeuFg2a0Jjtw9oNpA9dOwmAgsucmE+3dZYyPDhO1D0iIQYTcKCzEgXOXaZIcZU3CckY6/gVpjRpbUhqIGdHpx+aIjIupjD29fJiOnZV8xfTYUT0Z/5VCwnaaKu4a92RAcwkP4FxObwZa3BWX3s4QbPD9/4Qrt1JHzxQ74F4S1dP3n1qwLMuH45+0OvWGjvV3ZqbG0glAI5tiwUjORn/BGKwY3tmOPdCOSZzjrAh9M1FnemPDuGz7CetZqCiMKgEuy0/f5WaCqRnbAr9JVzr09Wtizs8u/KS/hsLs8TKUEe8loRMMId6BoONGh/mX3+5eEurIl0iIeLjVc791bxUXciw9t7coqtcWhewZe3cW+5yhg6D3sy2jESUXSdrJz0uwl2Ojk216xzUVZPRQLjJCkUz/M3l/w2qt5BYr4A1iRdMjHxtdZUZhDYduh7bz/3RnmK5Aiiavkas263JR9EE/iRnTefYQnyasYmdqgT9e93XovrVbi1633iOUL3ah6RV2BGJN2hBZQI6fRmQerth645ZdRwT1b0DlAL0JilO6kJz1JlLFNYi217oIcwrPX0paHrWtjGtMiClqLJcHPcVnWnmlrSqJLkdpKpC/LvqiGi+cRumaAulByJQdytpo7rKE="
