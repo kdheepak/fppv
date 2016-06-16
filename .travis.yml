@@ -2,7 +2,7 @@
 deploy:
   true:
     condition: $TOXENV == py27
-    repo: kdheepak89/fppv
+    repo: kdheepak/fppv
     tags: true
   distributions: sdist bdist_wheel
   password:
