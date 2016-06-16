@@ -46,7 +46,7 @@ script:
   - git config user.name "Travis-CI"
   - git config user.email "noreply@travis-ci.org"
   - ghp-import -n -m "Generate Sphinx Documentation"  _build/html
-  - git push -f -q https://$GITHUB_API_KEY@github.com/kdheepak89/fppv gh-pages
+  - git push -f -q https://$GITHUB_API_KEY@github.com/kdheepak/fppv gh-pages
 cache:
   directories:
   - $HOME/.cache/pip
