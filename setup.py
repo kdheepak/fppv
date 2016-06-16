@@ -30,7 +30,7 @@ setup(
     long_description=readme + '\n\n' + history,
     author="Dheepak Krishnamurthy",
     author_email='kdheepak89@gmail.com',
-    url='https://github.com/kdheepak89/fppv',
+    url='https://github.com/kdheepak/fppv',
     packages=[
         'fppv',
     ],
